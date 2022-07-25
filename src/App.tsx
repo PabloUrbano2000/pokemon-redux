@@ -1,43 +1,24 @@
 import React from "react";
-// import { connect } from "react-redux";
 import { Col, Spin } from "antd";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import Searcher from "./components/Searcher";
 import PokemonList from "./components/PokemonList";
 import logo from "./statics/logo.svg";
+import { fetchPokemonsWithDetails } from "./slices/dataSlice";
 import "./App.css";
-import { getPokemons } from "./api";
-import {
-  getPokemonWithDetails,
-  setLoading,
-  // setPokemons,
-  //  as setPokemonsActions
-} from "./actions";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 function App(): JSX.Element {
-  // forma de redux con hooks
-  // const pokemons = useSelector((state: any) => state.pokemons);
+  const pokemons = useSelector(
+    (state: any) => state.data.pokemons,
+    shallowEqual
+  );
 
-  // CON IMMUTABLE => OBTENEMOS POKEMONS EN FROMJS PERO CON TOJS NOS LA ARREGLAMOS
-  // shallowEqual nos ayuda a que no haya rerenders innecesarios
-  const pokemons = useSelector((state: any) =>
-    state.getIn(["data", "pokemons"], shallowEqual)
-  ).toJS();
+  const loading = useSelector((state: any) => state.ui.loading);
 
-  // const loading = useSelector((state: any) => state.loading);
-
-  // CON IMMUTABLE EL TOJS SOLO SIRVE PARA CUANDO ES UN ARREGLO PARA OBJETO
-  const loading = useSelector((state: any) => state.getIn(["ui", "loading"]));
   const dispatch: any = useDispatch();
 
   React.useEffect(() => {
-    const fetchPokemons = async () => {
-      dispatch(setLoading(true));
-      const pokemonRes: any = await getPokemons();
-      dispatch(getPokemonWithDetails(pokemonRes));
-      dispatch(setLoading(false));
-    };
-    fetchPokemons();
+    dispatch(fetchPokemonsWithDetails());
   }, []);
 
   return (
