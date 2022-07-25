@@ -40,16 +40,4 @@ function App(): JSX.Element {
   );
 }
 
-// forma antigua de crear state en redux, en el componente require de props
-// { pokemons, setPokemons }: any
-
-// const mapStateToProps = (state: any) => ({
-//   pokemons: state.pokemons,
-// });
-
-// const mapDispatchToProps = (dispatch: any) => ({
-//   setPokemons: (value: any) => dispatch(setPokemonsActions(value)),
-// });
-
-export default //  connect(mapStateToProps, mapDispatchToProps)
-App;
+export default App;

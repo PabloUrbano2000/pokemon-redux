@@ -1,7 +1,6 @@
 import React from "react";
 import { Card } from "antd";
 import StarButton from "./StarButton";
-// import { setFavorite } from "../actions";
 import { setFavorite } from "../slices/dataSlice";
 import { useDispatch } from "react-redux";
 

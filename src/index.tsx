@@ -23,11 +23,7 @@ const root = ReactDOM.createRoot(
 const composeAlt =
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const composedEnhancers: any = composeAlt(
-  // (window as any).__REDUX_DEVTOOLS_EXTENSION__ &&
-  //   (window as any).__REDUX_DEVTOOLS_EXTENSION__(),
-  applyMiddleware(thunk, logger)
-);
+const composedEnhancers: any = composeAlt(applyMiddleware(thunk, logger));
 
 const store = createStore(rootReducer, composedEnhancers);
 
